@@ -2,9 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
   StyleSheet,
-  Text,
   View,
-  TextInput,
   Button,
   ScrollView,
   FlatList,
@@ -14,6 +12,7 @@ import GoalInput from './components/GoalInput'
 
 export default function App() {
   const [overallGoals, setOverallGoals] = useState([]);
+  const [isAddMode, setIsAddMode] = useState(false)
 
   const goalInputHandler = (enteredText) => {
     setEntered(enteredText);
@@ -34,7 +33,8 @@ export default function App() {
 
   return (
     <View style={styles.screen}>
-      <GoalInput onAddGoal={addGoal} />
+      <Button title='Add New Goal' onPress={() => setIsAddMode(true)}/>
+      <GoalInput visible={isAddMode} onAddGoal={addGoal} />
       <FlatList
         keyExtractor={(item, index) => item.id}
         data={overallGoals}
